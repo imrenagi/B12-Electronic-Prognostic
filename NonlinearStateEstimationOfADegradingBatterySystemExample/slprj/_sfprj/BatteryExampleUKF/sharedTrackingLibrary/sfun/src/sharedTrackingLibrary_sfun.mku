@@ -1,0 +1,83 @@
+#--------------------------- Tool Specifications -------------------------
+#
+# Modify the following macros to reflect the tools you wish to use for
+# compiling and linking your code.
+#
+CC = /Applications/MATLAB_R2017b.app/bin/mex 
+LD = $(CC)
+ 
+MODEL     = sharedTrackingLibrary
+TARGET      = sfun
+MODULE_SRCS   = c1_sharedTrackingLibrary.c c2_sharedTrackingLibrary.c
+MODEL_SRC  = sharedTrackingLibrary_sfun.c
+MODEL_REG = 
+MAKEFILE    = sharedTrackingLibrary_sfun.mku
+MATLAB_ROOT  = /Applications/MATLAB_R2017b.app/toolbox/stateflow/stateflow/../../..
+BUILDARGS   = 
+#------------------------------ Include/Lib Path ------------------------------
+ 
+USER_INCLUDES = 
+AUX_INCLUDES = 
+MLSLSF_INCLUDES  = \
+    -I"/Applications/MATLAB_R2017b.app/extern/include" \
+    -I"/Applications/MATLAB_R2017b.app/simulink/include" \
+    -I"/Applications/MATLAB_R2017b.app/simulink/include/sf_runtime" \
+    -I"/Applications/MATLAB_R2017b.app/stateflow/c/mex/include" \
+    -I"/Applications/MATLAB_R2017b.app/rtw/c/src" \
+    -I"/Users/imrenagi/Documents/MATLAB/Examples/control_featured/NonlinearStateEstimationOfADegradingBatterySystemExample/slprj/_sfprj/BatteryExampleUKF/sharedTrackingLibrary/sfun/src" 
+
+THIRD_PARTY_INCLUDES = 
+
+INCLUDE_PATH = $(USER_INCLUDES) $(AUX_INCLUDES) $(MLSLSF_INCLUDES) $(COMPILER_INCLUDES) $(THIRD_PARTY_INCLUDES)
+ 
+#----------------- Compiler and Linker Options --------------------------------
+ 
+# Optimization Options
+ 
+CC_OPTS = 
+CPP_REQ_DEFINES = -DMATLAB_MEX_FILE
+ 
+# Uncomment this line to move warning level to W4
+# cflags = $(cflags:W3=W4)
+CFLAGS = $(CC_OPTS) $(CPP_REQ_DEFINES) $(INCLUDE_PATH)
+ 
+LDFLAGS = -Wl,-rpath,@loader_path  
+ 
+AUXLDFLAGS = 
+#----------------------------- Source Files -----------------------------------
+ 
+REQ_SRCS  = $(MODEL_SRC) $(MODEL_REG) $(MODULE_SRCS)
+
+USER_ABS_OBJS =
+
+AUX_ABS_OBJS =
+THIRD_PARTY_OBJS =
+
+REQ_OBJS = $(REQ_SRCS:.cpp=.o)
+REQ_OBJS2 = $(REQ_OBJS:.c=.o)
+OBJS = $(REQ_OBJS2) $(USER_ABS_OBJS) $(AUX_ABS_OBJS) $(THIRD_PARTY_OBJS)
+OBJLIST_FILE = sharedTrackingLibrary_sfun.mol
+SFCLIB = 
+AUX_LNK_OBJS = 
+USER_LIBS = 
+PARLIB = 
+  MAPCSF = /Applications/MATLAB_R2017b.app/tools/maci64/mapcsf
+   # RUN_MAPCSF_ON_UNIX is defined only if MAPCSF exists on this platform.
+   ifneq ($(wildcard $(MAPCSF)),) # run MAPCSF if it exists on this platform
+      RUN_MAPCSF_ON_UNIX =  /Applications/MATLAB_R2017b.app/tools/maci64/mapcsf $@
+   endif
+ 
+#--------------------------------- Rules --------------------------------------
+ 
+DO_RANLIB = xcrun ranlib $(MODEL)_$(TARGET).a
+ 
+$(MODEL)_$(TARGET).a : $(MAKEFILE) $(OBJS) $(SFCLIB) $(AUX_LNK_OBJS) $(USER_LIBS) $(THIRD_PARTY_LIBS)
+	@echo ### Linking ...
+	xcrun ar ruv $(MODEL)_$(TARGET).a $(OBJS)
+	$(DO_RANLIB)
+%.o :    %.c
+	$(CC) -c $(CFLAGS) $<
+
+%.o :    %.cpp
+	$(CC) -c $(CFLAGS) $<
+

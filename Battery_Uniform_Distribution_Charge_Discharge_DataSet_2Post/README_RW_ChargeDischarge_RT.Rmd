@@ -1,0 +1,440 @@
+---
+title: "Description of Room Temperature Random Walk Charging and Discharging Data Sets"
+author: "Author: Brian Bole"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+---
+
+### Point of Contact: chetan.s.kulkarni@nasa.gov
+
+## Experiment Description
+
+A set of four 18650 Li-ion batteries (Identified as RW9, RW10, RW11 and RW12) were continuously operated using a sequence of charging and discharging currents between -4.5A and 4.5A. This type of charging and discharging operation is referred to here as random walk (RW) operation. Each of the loading periods lasted 5 minutes, and after 1500 periods (about 5 days) a series of reference charging and discharging cycles were performed in order to provide reference benchmarks for battery state health. 
+
+This document explains the structure of the battery data sets. Analysis of a similar dataset is published in:
+
+*Brian Bole, Chetan Kulkarni, and Matthew Daigle, "Adaptation of an Electrochemistry-based Li-Ion Battery Model to Account for Deterioration Observed Under Randomized Use", in the proceedings of the Annual Conference of the Prognostics and Health Management Society, 2014*    
+
+Please cite this paper when using this dataset.
+
+## Files:
+RW9.mat -> A Matlab data structure for Battery #RW9
+
+RW9.Rda -> An R data frame containing the same data as the Matlab data structure
+
+RW10.mat -> A Matlab data structure for Battery #RW10
+
+RW10.Rda -> An R data frame containing the same data as the Matlab data structure
+
+RW11.mat -> A Matlab data structure for Battery #RW11
+
+RW11.Rda -> An R data frame containing the same data as the Matlab data structure
+
+RW12.mat -> A Matlab data structure for Battery #RW12
+
+RW12.Rda -> An R data frame containing the same data as the Matlab data structure
+
+MatlabSamplePlots.m -> An example Matlab code that recreates all of the plots shown in the README document
+
+## Data Structure:
+
+Each of the .mat files contains a Matlab data structure called "data".
+
+The top level of this structure contains 3 fields:
+
+>  1. **procedure** (A string naming the experimental procedure)
+>  2. **description** (A more detailed text description of the experimental procedure)
+>  3. **step** (An array of structs containing cycling data)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Within the **step** array you will find a struct with the following fields:
+
+>  1. **comment** (string description of step)
+>  2. **type** (one character identifier of step: 'C' = Charging, 'D' = Discharging, 'R' = Resting (current = 0))
+>  3. **relativeTime** (vector of sample time in seconds, referenced to the beginning of the current step)
+>  4. **time** (vector of sample time in seconds, referenced to the beginning of the experiment)
+>  5. **voltage** (vector of sample voltage in units of Volts)
+>  6. **current** (vector of sample current in units of Amps)
+>  7. **temperature** (vector of sample temperature in units of degrees C)
+>  8. **date** (date and time at which the current step was started in dd-Mon-yyyy HH:MM:SS format)
+
+Each of the .Rda files contains the same information as the Matlab data files. The step data structure in each .Rda file is formated as a dataframe wherein each row represents a unique charging, discharging, or resting step in the battery cycling experiment.  
+
+### Batteries are cycled using three types of reference profiles:
+
+1. A low current discharge at 0.04A is used to observe the batteries open circuit voltage as a function of SOC
+    
+     - This profile is identified in the **step** data structure with the **comment** field equal to **"low current discharge at 0.04A"**
+    
+    - Resting periods that occur immediately before and after the low current discharge are identified with the **comment** field = **"rest prior low current discharge"** and **comment** field = **"rest post low current discharge"** respectively  
+
+2. A reference charge and discharge cycle is used to observe the battery capacity after every 1500 RW steps cycles
+    
+    - Batteries are first charged at 2A (constant current), until they reach 4.2V, at which time the charging switches to a constant voltage mode and continues charging the batteries until the charging current falls below 0.01A.
+    
+        - This step is identified with the **comment** field = **"reference charge"**
+    
+    - Batteries are then rested for a period of time with no current draw
+    
+        - This step is identified with the **comment** field = **"rest post reference charge"**
+    
+    - Batteries are then discharged at 2A until the battery voltage crosses 3.2V
+    
+        - This step is identified with the **comment** field = **"reference discharge"**
+    
+    - Batteries are then rested for a period of time
+    
+        - This step is identified with the **comment** field = **"rest post reference discharge"**
+        
+3. A pulsed current discharge of fully charged batteries is performed after every 3000 RW steps in order to benchmark changes to battery transient dynamics. The pulsed current discharge consist of a 1A load applied for 10 minutes, followed by 20 minutes of no load. 
+    
+    - This discharging profile is identified by alternating steps of **comment** = **"pulsed load (rest)"** and **comment** = **"pulsed load (discharge)"**
+    
+    - A resting period after either a pulsed discharge or a pulsed charge is denoted by **comment** = **"rest post pulsed load or charge"**
+    
+4. A pulsed current charge of recently discharged batteries is performed after every 3000 RW cycles in order to benchmark changes to battery transient dynamics. The pulsed current charge consists of a 1A charging current applied for 10 minutes, followed by 20 minutes of rest. 
+    
+     - This charging profile is identified by alternating steps of **comment** = **"pulsed charge (rest)"** and **comment** = **"pulsed charge (charge)"**
+   
+    - A resting period after either a pulsed discharge or a pulsed charge is denoted by **comment** = **"rest post pulsed load or charge"**
+
+### The random walk (RW) mode of battery cycling consists of:
+
+1. Selecting a charging or discharging current at random from the set {-4.5A, -3.75A, -3A, -2.25A, -1.5A, -0.75A, 0.75A, 1.5A, 2.25A, 3A, 3.75A, 4.5A}. Negative currents are associated with charging and positive currents indicate discharging. 
+
+2. The selected current setpoint is applied until either the battery voltage goes outside the range (3.2V - 4.2V) or 5 minutes has passed.
+  
+  - These steps are identified with the **comment** field = **"discharge (random walk)"** and  **comment** field = **"charge (random walk)"**
+  
+3. After each charging or discharging period, there will be a <1s period of rest while a new charging or discharging current setpoint is selected.   
+
+  - This steps is identified with the **comment** field = **"rest (random walk)"**
+  
+  - Steps 2 and 3 are repeated 1500 times, then characterization cycles are preformed to benchmark battery state of health.
+ 
+## Looking at the Reference Cycle Data
+
+### Example Plots of Low Current Discharge Cycles
+
+Sample plots for a low current discharge cycle are shown below.
+
+```{r, echo=T, message=FALSE, cache=FALSE, fig.width = 7, fig.height = 8}
+
+load("data/R/RW9.Rda")  # loading data for battery RW9
+
+# plot recorded current and voltage data from low current discharge steps 
+
+# find all of the steps with comment == 'low current discharge at 0.04A'
+LowDisSteps <- steps[steps$comment %in% 'low current discharge at 0.04A',]
+
+par(mfrow=c(2,1),mar=c(4,4,2,1)) # setup three rows of plots 
+# plot voltage
+plot(LowDisSteps$relativeTime[[1]]/3600,LowDisSteps$voltage[[1]], ylim = c(3,4.25),type="l",
+     lwd=1.5,main = "Low current discharge cycle",
+     xlab = "Time (h)",ylab = "Voltage (V)")
+
+# plot Current
+plot(LowDisSteps$relativeTime[[1]]/3600,LowDisSteps$current[[1]], ylim = c(-.1,.1),type="l",
+     lwd=1.5,xlab = "Time (h)",ylab = "Current (I)")
+```
+
+### Example Plots of Reference Discharging Cycles
+
+Constant load profiles that are run after every 1500 random walk steps are plotted using.
+
+```{r, echo=T,  cache = FALSE, fig.width = 7, fig.height = 5}
+
+# find all of the steps with comment == 'reference discharge'
+refDisSteps <- steps[steps$comment %in% 'reference discharge',]
+
+# Initialize Voltage plot
+plot(0,0,xlim = c(0,2.5), ylim = c(3,4.25),type="l",
+     main = "Reference discharge profiles",
+     xlab = "Time (h)",ylab = "Voltage (V)")
+
+# Plot Voltage profiles
+for(i in 1:dim(refDisSteps)[1]){
+    lines(refDisSteps$relativeTime[[i]]/3600,refDisSteps$voltage[[i]]
+          , type="l", lwd=1.5)
+}  
+```
+
+The differences in the voltage profiles observed in the previous plot are due to degradation of battery health over the experiment. As the battery ages, it's charge storage capacity decreases, and its internal resistance increases. 
+
+Here, the battery's capacity can be benchmarked by integrating current over the reference cycles. The next plot shows this capacity measurement vs date. 
+
+```{r, echo=T,  cache = FALSE, fig.width = 7, fig.height = 5}
+
+# Library needed for trapezoidal integration
+library(caTools)
+
+#Define date format
+format <- "%d-%B-%Y %H:%M:%S"
+
+# Identify Reference discharge cycles
+refDisSteps <- steps[steps$comment %in% 'reference discharge',]
+
+# Save Date and capacity for Reference discharge cycles
+Date <- as.Date(refDisSteps$date,format=format)
+Cap <- mapply(trapz,refDisSteps$relativeTime,refDisSteps$current)/3600
+
+# Identify date range for plot
+ExpStart<-head(Date,n=1)
+ExpEnd<-tail(Date,n=1)
+
+# Initialize plot
+par(mar=c(6,5,2,2)) # set plot margins
+plot(0,xlim = c(ExpStart,ExpEnd),ylim = c(1,2.2),xaxt="n",
+     main = "Degradation of Measured Capacity", xlab='', 
+     ylab = "Measured Capacity (Ah)")
+axis.Date(1, at = seq(ExpStart,ExpEnd,length.out=8), 
+          labels = seq(ExpStart,ExpEnd,length.out=8),
+          format= "%m/%d/%Y", las = 2)
+
+# Plot capacity points
+points(Date,Cap, type="p", lwd=1.5)
+
+```
+
+Changes in the battery's interanal resistance can also be observed in these reference discharging profiles by noting how much the battery voltage is pushed down when current is applied and how much it springs back up when no current is applied. 
+
+The next code snippet shows how the resting periods after each reference discharge can be grouped with the corresponding reference discharge cycle and added to the plot above. 
+
+```{r, echo=T,  cache = FALSE, fig.width = 7, fig.height = 5}
+
+# Identify comment codes of interest
+CC <- c("reference discharge", "rest post reference discharge")
+
+# Identify step indexes that match the comment codes
+inds <- 1:dim(steps)[1] # set vector of step indexes
+indCC <- inds[steps$comment %in% CC]
+
+# identify discontinuities in the indCC array
+Breaks <- c(0,which(diff(indCC) != 1),length(indCC))
+
+# separate continuous sequences of indexes into a list
+refInds<- lapply(seq(length(Breaks)-1),
+                function(i) indCC[(Breaks[i]+1):Breaks[i+1]])
+
+# define function that appends the relativeTime columns a sequence of steps into one vector
+appendTime <- function(steps){
+    # steps is a dataframe including relativeTime and date for a set steps
+    
+    Dateformat <- "%d-%B-%Y %H:%M:%S"
+    startTime <- strptime(steps$date[[1]], Dateformat)
+    
+    TimeCmb <- steps$relativeTime[[1]] # initialize time vector with first relativeTime column
+    
+    listLen <- length(steps$relativeTime)
+    if(listLen>1){
+        for (i in 2:listLen){
+            stepTime <- strptime(steps$date[[i]], Dateformat)
+            TimeCmb <- c(TimeCmb,difftime(stepTime,startTime,units="secs")+
+                             steps$relativeTime[[i]])
+        }        
+    }
+    TimeCmb
+}
+
+# Initialize plot
+plot(0,0,xlim = c(0,2.5), ylim = c(3,4.25),type="l",
+     main = "Reference discharge profiles and post-discharge rest period",
+     xlab = "Time (h)",ylab = "Voltage (V)")
+
+# Plot profiles
+for(i in 1:length(refInds)){
+    # combine the relativeTime columns in a sequence of steps into one vector
+    T<-appendTime(steps[refInds[[i]],c("relativeTime","date")])
+
+    # find voltage vector
+    V<-unlist(steps[refInds[[i]],"voltage"])
+    
+    # plot voltage profile
+    lines(T/3600,V, type="l", lwd=1.5)
+}  
+
+```
+
+Here, it is noted that the resting step was added about halfway into the experiment. This is why only half of the reference discharge steps have corresponding resting data. 
+
+The differences observed in the resting voltage dynamics shown in these steps are primarily attributied to differences in the battery's internal resistance as it degrades.
+
+### Example Plots of Pulsed Load Charging and Discharging Cycles
+
+The pulsed load charging and discharging cycles that are run after every 3000 RW steps are plotted using.
+
+```{r, echo=TRUE,cache = FALSE, fig.width = 7, fig.height = 5}
+
+# Identify comment codes of interest for pulsed discharging cycles
+CC <- c("pulsed load (rest)", "pulsed load (discharge)", "rest post pulsed load or charge")
+
+# Identify step indexes that match the comment codes
+inds <- 1:dim(steps)[1] # set vector of step indexes
+indCC <- inds[steps$comment %in% CC]
+
+# identify discontinuities in the indCC array
+Breaks <- c(0,which(diff(indCC) != 1),length(indCC))
+
+# separate continuous sequences of indexes into a list
+refInds<- lapply(seq(length(Breaks)-1),
+                function(i) indCC[(Breaks[i]+1):Breaks[i+1]])
+
+# Delete the resting steps that do not get grouped
+refInds<-refInds[sapply(refInds,function(x) length(x)>1)]
+
+# Initialize plot
+plot(0,0,xlim = c(0,8), ylim = c(3,4.25),type="l",
+     main = "Pulsed Discharge",
+     xlab = "Time (h)",ylab = "Voltage (V)")
+
+# Plot profiles
+for(i in 1:length(refInds)){
+    # combine the relativeTime columns in a sequence of steps into one vector
+    T<-appendTime(steps[refInds[[i]],c("relativeTime","date")])
+
+    # find voltage vector
+    V<-unlist(steps[refInds[[i]],"voltage"])
+    
+    # plot voltage profile
+    lines(T/3600,V, type="l", lwd=1.5)
+}  
+
+# Identify comment codes of interest for pulsed charging cycles
+CC <- c("pulsed charge (rest)", "pulsed charge (charge)", "rest post pulsed load or charge")
+
+# Identify step indexes that match the comment codes
+inds <- 1:dim(steps)[1] # set vector of step indexes
+indCC <- inds[steps$comment %in% CC]
+
+# identify discontinuities in the indCC array
+Breaks <- c(0,which(diff(indCC) != 1),length(indCC))
+
+# separate continuous sequences of indexes into a list
+refInds<- lapply(seq(length(Breaks)-1),
+                function(i) indCC[(Breaks[i]+1):Breaks[i+1]])
+
+# Delete the resting steps that do not get grouped
+refInds<-refInds[sapply(refInds,function(x) length(x)>1)]
+
+# Initialize plot
+plot(0,0,xlim = c(0,8), ylim = c(3,4.25),type="l",
+     main = "Pulsed Charge",
+     xlab = "Time (h)",ylab = "Voltage (V)")
+
+# Plot profiles
+for(i in 1:length(refInds)){
+    # combine the relativeTime columns in a sequence of steps into one vector
+    T<-appendTime(steps[refInds[[i]],c("relativeTime","date")])
+
+    # find voltage vector
+    V<-unlist(steps[refInds[[i]],"voltage"])
+    
+    # plot voltage profile
+    lines(T/3600,V, type="l", lwd=1.5)
+}  
+
+```
+
+## Looking at the Randomized Charging and Discharging Data
+
+The RW  operation is composed of a series of charging or discharging current setpoints that are selected at random from the set {-4.5A, -3.75A, -3A, -2.25A, -1.5A, -0.75A, 0.75A, 1.5A, 2.25A, 3A, 3.75A, 4.5A}. Negative currents are associated with charging and positive currents indicate discharging. 
+
+Each selected current setpoint is applied until either the battery voltage goes outside the range (3.2V - 4.2V) or 5 minutes has passed. Between each current setpoint there are brief (<1 second) periods of resting the battery (current = 0), while a new setpoint is selected. 
+
+The following sample code shows data collected over the first 50 and the last 50 RW discharge cycles in the experiment. 
+
+```{r, echo=T,  cache = FALSE, fig.width = 7, fig.height = 7}
+
+# Identify comment codes of interest
+CC <- c("discharge (random walk)", "charge (random walk)", "rest (random walk)")
+
+# Identify step indexes that match the comment codes
+inds <- 1:dim(steps)[1] # set vector of step indexes
+indCC <- inds[steps$comment %in% CC]
+
+# identify discontinuities in the indCC array
+Breaks <- c(0,which(diff(indCC) != 1),length(indCC))
+
+# separate continuous sequences of indexes into a list
+refInds<- lapply(seq(length(Breaks)-1),
+                function(i) indCC[(Breaks[i]+1):Breaks[i+1]])
+
+# Plot all voltage, current, and temperature data recorded for first 50 RW discharge cycles
+# Create 3 rows of plots
+par(mfrow=c(3,1),mar=c(4,4,2,1)) 
+
+# identify index sequence for first 50 RW discharge cycles
+inds <- head(refInds[[1]],n=100) # set n = 100 to get fifty current steps and 50 rest steps
+
+# combine the relativeTime columns in a sequence of steps into one vector
+T<-appendTime(steps[inds,c("relativeTime","date")])
+  
+# divide by 3600 to convert from seconds to hours
+T<- T/3600
+  
+# find voltage vector
+V<-unlist(steps[inds,"voltage"])
+  
+# find current vector
+I<-unlist(steps[inds,"current"])
+
+# find temperature vector
+Tp<-unlist(steps[inds,"temperature"])
+  
+# plot voltage 
+plot(T,V, ylim = c(3.15,4.25),type="l",
+       main = "First 50 RW cycles", xlab = "", 
+       ylab = "Voltage (V)")
+  title(xlab = "Time (h)", line = 2.5)
+  
+# plot current 
+plot(T,I, ylim = c(-5,5),type="l",
+     xlab = "",ylab = "Current (A)")
+  title(xlab = "Time (h)", line = 2.5)
+
+# plot temperature 
+plot(T,Tp, type="l", ylim =  c(20,40),
+     xlab = "",ylab = "Temperature (C)")
+  title(xlab = "Time (h)", line = 2.5)
+
+# Plot all voltage, current, and temperature data recorded for last 50 RW discharge cycles
+
+# identify index sequence for last 50 RW discharge cycles
+n<-length(Breaks) 
+inds <- tail(refInds[[n-1]],n=100) # set n = 100 to get fifty current steps and 50 rest steps
+  
+# combine the relativeTime columns in a sequence of steps into one vector
+T<-appendTime(steps[inds,c("relativeTime","date")])
+  
+# divide by 3600 to convert from seconds to hours
+T<- T/3600
+  
+# find voltage vector
+V<-unlist(steps[inds,"voltage"])
+  
+# find current vector
+I<-unlist(steps[inds,"current"])
+
+# find temperature vector
+Tp<-unlist(steps[inds,"temperature"])
+  
+# plot voltage 
+plot(T,V, ylim = c(3.15,4.25),type="l",
+       main = "Last 50 RW cycles", xlab = "", 
+       ylab = "Voltage (V)")
+  title(xlab = "Time (h)", line = 2.5)
+  
+  # plot current 
+plot(T,I, ylim =  c(-5,5),type="l",
+     xlab = "",ylab = "Current (A)")
+  title(xlab = "Time (h)", line = 2.5)
+
+# plot temperature 
+plot(T,Tp, type="l", ylim =  c(20,40),
+     xlab = "",ylab = "Temperature (C)")
+  title(xlab = "Time (h)", line = 2.5)
+
+```
+
+Note that during the first 50 steps, the battery voltage only hits the bounds (3.2V and 4.2V) during a few steps. Whenever a bound is reached that step is terminated and a new charging or discharging setpoint is selected at random from the set defined above. During the last 50 steps in the experiment the battery is seen to hit the upper and lower voltage bounds during almost every step that demands a current of 2A or higher. This is due to the degradation of battery health over the experiment, which results in decreased charge storage capacity, and increased internal resistance. 
+
+The battery operating temperature also seems to be consistently higher during the last 50 RW steps in the experiment than is observed during the first 50 steps. This is likely also attributed to the greater internal resistance of the degraded battery, which will result in more internal heating.  

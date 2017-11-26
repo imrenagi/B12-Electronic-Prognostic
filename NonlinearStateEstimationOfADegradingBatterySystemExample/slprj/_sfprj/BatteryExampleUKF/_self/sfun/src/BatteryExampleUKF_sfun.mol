@@ -1,0 +1,21 @@
+BatteryExampleUKF_sfun.o
+BatteryExampleUKF_sfun_registry.o
+
+"/Users/imrenagi/Documents/MATLAB/Examples/control_featured/NonlinearStateEstimationOfADegradingBatterySystemExample/slprj/_sfprj/BatteryExampleUKF/sharedTrackingLibrary/sfun/src/sharedTrackingLibrary_sfun.a"
+"-L/Applications/MATLAB_R2017b.app/bin/maci64" "-lmwsf_runtime"
+"-L/Applications/MATLAB_R2017b.app/bin/maci64" "-lfixedpoint"
+"-L/Applications/MATLAB_R2017b.app/bin/maci64" "-lut"
+"-L/Applications/MATLAB_R2017b.app/bin/maci64" "-lemlrt"
+"-L/Applications/MATLAB_R2017b.app/bin/maci64" "-lmwmathutil"
+"-L/Applications/MATLAB_R2017b.app/bin/maci64" "-lmwblas"
+"-L/Applications/MATLAB_R2017b.app/bin/maci64" "-lmwsl_log_load_blocks"
+"-L/Applications/MATLAB_R2017b.app/bin/maci64" "-lmwsimulink"
+"-L/Applications/MATLAB_R2017b.app/bin/maci64" "-lmwsl_sfcn_cov_bridge"
+"-L/Applications/MATLAB_R2017b.app/bin/maci64" "-lcovrt"
+"-L/Applications/MATLAB_R2017b.app/bin/maci64" "-lmwlapack"
+"-L/Applications/MATLAB_R2017b.app/bin/maci64" "-lmwsl_simtarget_core"
+"-L/Applications/MATLAB_R2017b.app/bin/maci64" "-lmwsl_simtarget_instrumentation"
+"-L/Applications/MATLAB_R2017b.app/bin/maci64" "-lmwipp"
+-L/Applications/MATLAB_R2017b.app/bin/maci64
+-lmwblas
+

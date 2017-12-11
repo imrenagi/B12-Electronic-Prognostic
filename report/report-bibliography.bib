@@ -1,0 +1,446 @@
+%%% ====================================================================
+%%%  BibTeX-file{
+%%%     author          = "Gerry Murray",
+%%%     version         = "1.2",
+%%%     date            = "2 April 2012",
+%%%     filename        = "acmsmall-sample-bibfile.bib",
+%%%     address         = "ACM, NY",
+%%%     email           = "murray at hq.acm.org",
+%%%     codetable       = "ISO/ASCII",
+%%%     keywords        = "ACM Reference Format, bibliography, citation, references",
+%%%     supported       = "yes",
+%%%     docstring       = "This BibTeX database file contains 'bibdata' entries
+%%%                        that 'match' the examples provided in the Specifications Document
+%%%                        AND, also, 'legacy'-type bibs. It should assist authors in
+%%%                        choosing the 'correct' at-bibtype and necessary bib-fields
+%%%                        so as to obtain the appropriate ACM Reference Format output.
+%%%			   It also contains many 'Standard Abbreviations'. "
+%%%  }
+%%% ====================================================================
+
+% Journals
+
+% First the Full Name is given, then the abbreviation used in the AMS Math
+% Reviews, with an indication if it could not be found there.
+% Note the 2nd overwrites the 1st, so swap them if you want the full name.
+
+ %{AMS}
+ @String{AMSTrans = "American Mathematical Society Translations" }
+ @String{AMSTrans = "Amer. Math. Soc. Transl." }
+ @String{BullAMS = "Bulletin of the American Mathematical Society" }
+ @String{BullAMS = "Bull. Amer. Math. Soc." }
+ @String{ProcAMS = "Proceedings of the American Mathematical Society" }
+ @String{ProcAMS = "Proc. Amer. Math. Soc." }
+ @String{TransAMS = "Transactions of the American Mathematical Society" }
+ @String{TransAMS = "Trans. Amer. Math. Soc." }
+
+ %ACM
+ @String{CACM = "Communications of the {ACM}" }
+ @String{CACM = "Commun. {ACM}" }
+ @String{CompServ = "Comput. Surveys" }
+ @String{JACM = "J. ACM" }
+ @String{ACMMathSoft = "{ACM} Transactions on Mathematical Software" }
+ @String{ACMMathSoft = "{ACM} Trans. Math. Software" }
+ @String{SIGNUM = "{ACM} {SIGNUM} Newsletter" }
+ @String{SIGNUM = "{ACM} {SIGNUM} Newslett." }
+
+ @String{AmerSocio = "American Journal of Sociology" }
+ @String{AmerStatAssoc = "Journal of the American Statistical Association" }
+ @String{AmerStatAssoc = "J. Amer. Statist. Assoc." }
+ @String{ApplMathComp = "Applied Mathematics and Computation" }
+ @String{ApplMathComp = "Appl. Math. Comput." }
+ @String{AmerMathMonthly = "American Mathematical Monthly" }
+ @String{AmerMathMonthly = "Amer. Math. Monthly" }
+ @String{BIT = "{BIT}" }
+ @String{BritStatPsych = "British Journal of Mathematical and Statistical
+          Psychology" }
+ @String{BritStatPsych = "Brit. J. Math. Statist. Psych." }
+ @String{CanMathBull = "Canadian Mathematical Bulletin" }
+ @String{CanMathBull = "Canad. Math. Bull." }
+ @String{CompApplMath = "Journal of Computational and Applied Mathematics" }
+ @String{CompApplMath = "J. Comput. Appl. Math." }
+ @String{CompPhys = "Journal of Computational Physics" }
+ @String{CompPhys = "J. Comput. Phys." }
+ @String{CompStruct = "Computers and Structures" }
+ @String{CompStruct = "Comput. \& Structures" }
+ @String{CompJour = "The Computer Journal" }
+ @String{CompJour = "Comput. J." }
+ @String{CompSysSci = "Journal of Computer and System Sciences" }
+ @String{CompSysSci = "J. Comput. System Sci." }
+ @String{Computing = "Computing" }
+ @String{ContempMath = "Contemporary Mathematics" }
+ @String{ContempMath = "Contemp. Math." }
+ @String{Crelle = "Crelle's Journal" }
+ @String{GiornaleMath = "Giornale di Mathematiche" }
+ @String{GiornaleMath = "Giorn. Mat." } % didn't find in AMS MR., ibid.
+
+ %IEEE
+ @String{Computer = "{IEEE} Computer" }
+ @String{IEEETransComp = "{IEEE} Transactions on Computers" }
+ @String{IEEETransComp = "{IEEE} Trans. Comput." }
+ @String{IEEETransAC = "{IEEE} Transactions on Automatic Control" }
+ @String{IEEETransAC = "{IEEE} Trans. Automat. Control" }
+ @String{IEEESpec = "{IEEE} Spectrum" } % didn't find in AMS MR
+ @String{ProcIEEE = "Proceedings of the {IEEE}" }
+ @String{ProcIEEE = "Proc. {IEEE}" } % didn't find in AMS MR
+ @String{IEEETransAeroElec = "{IEEE} Transactions on Aerospace and Electronic
+     Systems" }
+ @String{IEEETransAeroElec = "{IEEE} Trans. Aerospace Electron. Systems" }
+
+ @String{IMANumerAna = "{IMA} Journal of Numerical Analysis" }
+ @String{IMANumerAna = "{IMA} J. Numer. Anal." }
+ @String{InfProcLet = "Information Processing Letters" }
+ @String{InfProcLet = "Inform. Process. Lett." }
+ @String{InstMathApp = "Journal of the Institute of Mathematics and
+     its Applications" }
+ @String{InstMathApp = "J. Inst. Math. Appl." }
+ @String{IntControl = "International Journal of Control" }
+ @String{IntControl = "Internat. J. Control" }
+ @String{IntNumerEng = "International Journal for Numerical Methods in
+     Engineering" }
+ @String{IntNumerEng = "Internat. J. Numer. Methods Engrg." }
+ @String{IntSuper = "International Journal of Supercomputing Applications" }
+ @String{IntSuper = "Internat. J. Supercomputing Applic." } % didn't find
+%% in AMS MR
+ @String{Kibernetika = "Kibernetika" }
+ @String{JResNatBurStand = "Journal of Research of the National Bureau
+     of Standards" }
+ @String{JResNatBurStand = "J. Res. Nat. Bur. Standards" }
+ @String{LinAlgApp = "Linear Algebra and its Applications" }
+ @String{LinAlgApp = "Linear Algebra Appl." }
+ @String{MathAnaAppl = "Journal of Mathematical Analysis and Applications" }
+ @String{MathAnaAppl = "J. Math. Anal. Appl." }
+ @String{MathAnnalen = "Mathematische Annalen" }
+ @String{MathAnnalen = "Math. Ann." }
+ @String{MathPhys = "Journal of Mathematical Physics" }
+ @String{MathPhys = "J. Math. Phys." }
+ @String{MathComp = "Mathematics of Computation" }
+ @String{MathComp = "Math. Comp." }
+ @String{MathScand = "Mathematica Scandinavica" }
+ @String{MathScand = "Math. Scand." }
+ @String{TablesAidsComp = "Mathematical Tables and Other Aids to Computation" }
+ @String{TablesAidsComp = "Math. Tables Aids Comput." }
+ @String{NumerMath = "Numerische Mathematik" }
+ @String{NumerMath = "Numer. Math." }
+ @String{PacificMath = "Pacific Journal of Mathematics" }
+ @String{PacificMath = "Pacific J. Math." }
+ @String{ParDistComp = "Journal of Parallel and Distributed Computing" }
+ @String{ParDistComp = "J. Parallel and Distrib. Comput." } % didn't find
+%% in AMS MR
+ @String{ParComputing = "Parallel Computing" }
+ @String{ParComputing = "Parallel Comput." }
+ @String{PhilMag = "Philosophical Magazine" }
+ @String{PhilMag = "Philos. Mag." }
+ @String{ProcNAS = "Proceedings of the National Academy of Sciences
+                    of the USA" }
+ @String{ProcNAS = "Proc. Nat. Acad. Sci. U. S. A." }
+ @String{Psychometrika = "Psychometrika" }
+ @String{QuartMath = "Quarterly Journal of Mathematics, Oxford, Series (2)" }
+ @String{QuartMath = "Quart. J. Math. Oxford Ser. (2)" }
+ @String{QuartApplMath = "Quarterly of Applied Mathematics" }
+ @String{QuartApplMath = "Quart. Appl. Math." }
+ @String{RevueInstStat = "Review of the International Statisical Institute" }
+ @String{RevueInstStat = "Rev. Inst. Internat. Statist." }
+
+ %SIAM
+ @String{JSIAM = "Journal of the Society for Industrial and Applied
+     Mathematics" }
+ @String{JSIAM = "J. Soc. Indust. Appl. Math." }
+ @String{JSIAMB = "Journal of the Society for Industrial and Applied
+     Mathematics, Series B, Numerical Analysis" }
+ @String{JSIAMB = "J. Soc. Indust. Appl. Math. Ser. B Numer. Anal." }
+ @String{SIAMAlgMeth = "{SIAM} Journal on Algebraic and Discrete Methods" }
+ @String{SIAMAlgMeth = "{SIAM} J. Algebraic Discrete Methods" }
+ @String{SIAMAppMath = "{SIAM} Journal on Applied Mathematics" }
+ @String{SIAMAppMath = "{SIAM} J. Appl. Math." }
+ @String{SIAMComp = "{SIAM} Journal on Computing" }
+ @String{SIAMComp = "{SIAM} J. Comput." }
+ @String{SIAMMatrix = "{SIAM} Journal on Matrix Analysis and Applications" }
+ @String{SIAMMatrix = "{SIAM} J. Matrix Anal. Appl." }
+ @String{SIAMNumAnal = "{SIAM} Journal on Numerical Analysis" }
+ @String{SIAMNumAnal = "{SIAM} J. Numer. Anal." }
+ @String{SIAMReview = "{SIAM} Review" }
+ @String{SIAMReview = "{SIAM} Rev." }
+ @String{SIAMSciStat = "{SIAM} Journal on Scientific and Statistical
+     Computing" }
+ @String{SIAMSciStat = "{SIAM} J. Sci. Statist. Comput." }
+
+ @String{SoftPracExp = "Software Practice and Experience" }
+ @String{SoftPracExp = "Software Prac. Experience" } % didn't find in AMS MR
+ @String{StatScience = "Statistical Science" }
+ @String{StatScience = "Statist. Sci." }
+ @String{Techno = "Technometrics" }
+ @String{USSRCompMathPhys = "{USSR} Computational Mathematics and Mathematical
+     Physics" }
+ @String{USSRCompMathPhys = "{U. S. S. R.} Comput. Math. and Math. Phys." }
+ @String{VLSICompSys = "Journal of {VLSI} and Computer Systems" }
+ @String{VLSICompSys = "J. {VLSI} Comput. Syst." }
+ @String{ZAngewMathMech = "Zeitschrift fur Angewandte Mathematik und
+     Mechanik" }
+ @String{ZAngewMathMech = "Z. Angew. Math. Mech." }
+ @String{ZAngewMathPhys = "Zeitschrift fur Angewandte Mathematik und Physik" }
+ @String{ZAngewMathPhys = "Z. Angew. Math. Phys." }
+
+% Publishers % ================================================= |
+
+ @String{Academic = "Academic Press" }
+ @String{ACMPress = "{ACM} Press" }
+ @String{AdamHilger = "Adam Hilger" }
+ @String{AddisonWesley = "Addison-Wesley" }
+ @String{AllynBacon = "Allyn and Bacon" }
+ @String{AMS = "American Mathematical Society" }
+ @String{Birkhauser = "Birkha{\"u}ser" }
+ @String{CambridgePress = "Cambridge University Press" }
+ @String{Chelsea = "Chelsea" }
+ @String{ClaredonPress = "Claredon Press" }
+ @String{DoverPub = "Dover Publications" }
+ @String{Eyolles = "Eyolles" }
+ @String{HoltRinehartWinston = "Holt, Rinehart and Winston" }
+ @String{Interscience = "Interscience" }
+ @String{JohnsHopkinsPress = "The Johns Hopkins University Press" }
+ @String{JohnWileySons = "John Wiley and Sons" }
+ @String{Macmillan = "Macmillan" }
+ @String{MathWorks = "The Math Works Inc." }
+ @String{McGrawHill = "McGraw-Hill" }
+ @String{NatBurStd = "National Bureau of Standards" }
+ @String{NorthHolland = "North-Holland" }
+ @String{OxfordPress = "Oxford University Press" }  %address Oxford or London?
+ @String{PergamonPress = "Pergamon Press" }
+ @String{PlenumPress = "Plenum Press" }
+ @String{PrenticeHall = "Prentice-Hall" }
+ @String{SIAMPub = "{SIAM} Publications" }
+ @String{Springer = "Springer-Verlag" }
+ @String{TexasPress = "University of Texas Press" }
+ @String{VanNostrand = "Van Nostrand" }
+ @String{WHFreeman = "W. H. Freeman and Co." }
+
+%Entries
+
+@article{ZHANG20116007,
+title = "A review on prognostics and health monitoring of Li-ion battery",
+journal = "Journal of Power Sources",
+volume = "196",
+number = "15",
+pages = "6007 - 6014",
+year = "2011",
+issn = "0378-7753",
+doi = "https://doi.org/10.1016/j.jpowsour.2011.03.101",
+url = "http://www.sciencedirect.com/science/article/pii/S0378775311007865",
+author = "Jingliang Zhang and Jay Lee",
+keywords = "Prognostics, Health monitoring, Li-ion battery, Estimation, Prediction, RUL"
+}
+
+@article{Liu:2014:LBR:2662603.2662621,
+ author = {Liu, Datong and Luo, Yue and Liu, Jie and Peng, Yu and Guo, Limeng and Pecht, Michael},
+ title = {Lithium-ion Battery Remaining Useful Life Estimation Based on Fusion Nonlinear Degradation AR Model and RPF Algorithm},
+ journal = {Neural Comput. Appl.},
+ issue_date = {September 2014},
+ volume = {25},
+ number = {3-4},
+ month = sep,
+ year = {2014},
+ issn = {0941-0643},
+ pages = {557--572},
+ numpages = {16},
+ url = {https://doi.org/10.1007/s00521-013-1520-x},
+ doi = {10.1007/s00521-013-1520-x},
+ acmid = {2662621},
+ publisher = {Springer-Verlag},
+ address = {London, UK, UK},
+ keywords = {Data-driven prognostics, Fusion prognostics, Lithium-ion battery, ND---AR, RPF},
+}
+
+@article{Si2011RemainingUL,
+  title={Remaining useful life estimation - A review on the statistical data driven approaches},
+  author={Xiao-Sheng Si and Wenbin Wang and Chang-Hua Hu and Donghua Zhou},
+  journal={European Journal of Operational Research},
+  year={2011},
+  volume={213},
+  pages={1-14}
+}
+
+@article{Bhaskar01,
+author = {Saha, Bhaskar and Goebel, Kai},
+year = {2009},
+month = {01},
+pages = {1-10},
+title = {Modeling Li-ion battery capacity depletion in a particle filtering framework},
+booktitle = {Proceedings of the Annual Conference of the Prognostics and Health Mngt Society}
+}
+
+@ARTICLE{4579269,
+author={K. Goebel and B. Saha and A. Saxena and J. R. Celaya and J. P. Christophersen},
+journal={IEEE Instrumentation Measurement Magazine},
+title={Prognostics in Battery Health Management},
+year={2008},
+volume={11},
+number={4},
+pages={33-40},
+keywords={battery management systems;condition monitoring;maintenance engineering;pattern classification;regression analysis;secondary cells;state estimation;18650-size lithium-ion cell;Gen 2 cells;battery health management;classification;prognostics and health management;regression;state estimation algorithms;Battery charge measurement;Battery management systems;Battery powered vehicles;Circuit testing;Hybrid electric vehicles;Instruments;Laboratories;Life testing;NASA;Temperature},
+doi={10.1109/MIM.2008.4579269},
+ISSN={1094-6969},
+month={August},}
+
+@article{zio:hal-00609502,
+  TITLE = {{Particle filtering prognostic estimation of the remaining useful life of nonlinear components}},
+  AUTHOR = {Zio, Enrico and Peloni, Giovanni},
+  URL = {https://hal-supelec.archives-ouvertes.fr/hal-00609502},
+  JOURNAL = {{Reliability Engineering and System Safety}},
+  PUBLISHER = {{Elsevier}},
+  VOLUME = {96},
+  NUMBER = {3},
+  PAGES = {403-409},
+  YEAR = {2011},
+  MONTH = Mar,
+  KEYWORDS = {Life prognosis ; Particle filtering ; Monte Carlo estimation ; Crack propagation},
+  HAL_ID = {hal-00609502},
+  HAL_VERSION = {v1},
+}
+
+
+@article{liu_2010,
+author = {Liu, Jie and Saxena, Abhinav and Goebel, Kai and Saha, Bhaskar and Wang, Wilson},
+year = {2010},
+month = {01},
+pages = {},
+title = {An Adaptive Recurrent Neural Network for Remaining Useful Life Prediction of Lithium-ion Batteries},
+booktitle = {Annual Conference of the Prognostics and Health Management Society, PHM 2010}
+}
+@ARTICLE{1159187,
+author={Lijun Gao and Shengyi Liu and R. A. Dougal},
+journal={IEEE Transactions on Components and Packaging Technologies},
+title={Dynamic lithium-ion battery model for system simulation},
+year={2002},
+volume={25},
+number={3},
+pages={495-505},
+keywords={lithium;modelling;secondary cells;transient response;Li;Sony US18650;dynamic model;dynamic ranges;lithium-ion battery;nonlinear equilibrium potentials;portable battery-powered systems;rate-dependencies;system simulation;temperature-dependencies;thermal effects;transient power demand;virtual-prototyping;Aerospace electronics;Batteries;Circuits;Dynamic range;Power system dynamics;Power system modeling;Temperature;Transient response;Vehicle dynamics;Virtual manufacturing},
+doi={10.1109/TCAPT.2002.803653},
+ISSN={1521-3331},
+month={Sep},}
+
+@ARTICLE{4655607,
+author={B. Saha and K. Goebel and S. Poll and J. Christophersen},
+journal={IEEE Transactions on Instrumentation and Measurement},
+title={Prognostics Methods for Battery Health Monitoring Using a Bayesian Framework},
+year={2009},
+volume={58},
+number={2},
+pages={291-296},
+keywords={Bayes methods;battery management systems;condition monitoring;equivalent circuits;remaining life assessment;Bayesian framework;Bayesian statistical approach;battery health monitoring;complex systems;electrochemical processes;equivalent electric circuit parameters;inference-estimation techniques;internal state variables;particle filters;prognostics methods;relevance vector machines;remaining life prediction;remaining useful life;Battery health;Bayesian learning;particle filter;prognostics;relevance vector machine;remaining useful life},
+doi={10.1109/TIM.2008.2005965},
+ISSN={0018-9456},
+month={Feb},}
+
+@article{doi:10.1177/0142331208092030,
+author = {Bhaskar Saha and Kai Goebel and Jon Christophersen},
+title ={Comparison of prognostic algorithms for estimating remaining useful life of                 batteries},
+journal = {Transactions of the Institute of Measurement and Control},
+volume = {31},
+number = {3-4},
+pages = {293-308},
+year = {2009},
+doi = {10.1177/0142331208092030}}
+
+@techreport{bole2014adaptation,
+  title={Adaptation of an electrochemistry-based li-ion battery model to account for deterioration observed under randomized use},
+  author={Bole, Brian and Kulkarni, Chetan S and Daigle, Matthew},
+  year={2014},
+  institution={SGT, Inc. Moffett Field United States}
+}
+
+@article{RICHARDSON2017209,
+title = "Gaussian process regression for forecasting battery state of health",
+journal = "Journal of Power Sources",
+volume = "357",
+number = "Supplement C",
+pages = "209 - 219",
+year = "2017",
+issn = "0378-7753",
+doi = "https://doi.org/10.1016/j.jpowsour.2017.05.004",
+url = "http://www.sciencedirect.com/science/article/pii/S0378775317306250",
+author = "Robert R. Richardson and Michael A. Osborne and David A. Howey",
+keywords = "Lithium-ion battery, Gaussian process regression, State-of-health, Ageing, Prognostics"
+}
+
+@article{FLEISCHER2014276,
+title = "On-line adaptive battery impedance parameter and state estimation considering physical principles in reduced order equivalent circuit battery models: Part 1. Requirements, critical review of methods and modeling",
+journal = "Journal of Power Sources",
+volume = "260",
+number = "Supplement C",
+pages = "276 - 291",
+year = "2014",
+issn = "0378-7753",
+doi = "https://doi.org/10.1016/j.jpowsour.2014.01.129",
+url = "http://www.sciencedirect.com/science/article/pii/S0378775314002249",
+author = "Christian Fleischer and Wladislaw Waag and Hans-Martin Heyn and Dirk Uwe Sauer",
+keywords = "Battery monitoring, Parameter & state estimation, Impedance, On-line recursive algorithm"
+}
+
+@article{10.1371/journal.pone.0163004,
+    author = {Li, Lingling AND Wang, Pengchong AND Chao, Kuei-Hsiang AND Zhou, Yatong AND Xie, Yang},
+    journal = {PLOS ONE},
+    publisher = {Public Library of Science},
+    title = {Remaining Useful Life Prediction for Lithium-Ion Batteries Based on Gaussian Processes Mixture},
+    year = {2016},
+    month = {09},
+    volume = {11},
+    url = {https://doi.org/10.1371/journal.pone.0163004},
+    pages = {1-13},
+    abstract = {The remaining useful life (RUL) prediction of Lithium-ion batteries is closely related to the capacity degeneration trajectories. Due to the self-charging and the capacity regeneration, the trajectories have the property of multimodality. Traditional prediction models such as the support vector machines (SVM) or the Gaussian Process regression (GPR) cannot accurately characterize this multimodality. This paper proposes a novel RUL prediction method based on the Gaussian Process Mixture (GPM). It can process multimodality by fitting different segments of trajectories with different GPR models separately, such that the tiny differences among these segments can be revealed. The method is demonstrated to be effective for prediction by the excellent predictive result of the experiments on the two commercial and chargeable Type 1850 Lithium-ion batteries, provided by NASA. The performance comparison among the models illustrates that the GPM is more accurate than the SVM and the GPR. In addition, GPM can yield the predictive confidence interval, which makes the prediction more reliable than that of traditional models.},
+    number = {9},
+    doi = {10.1371/journal.pone.0163004}
+}
+
+@INPROCEEDINGS{6183271,
+author={T. Huria and M. Ceraolo and J. Gazzarri and R. Jackey},
+booktitle={2012 IEEE International Electric Vehicle Conference},
+title={High fidelity electrical model with thermal dependence for characterization and simulation of high power lithium battery cells},
+year={2012},
+volume={},
+number={},
+pages={1-8},
+keywords={battery management systems;battery powered vehicles;equivalent circuits;power system parameter estimation;power transmission (mechanical);secondary cells;battery model;discharge dynamics;electrical model;electrochemical system;equivalent circuit model;kinetic phenomena;lithium battery cells;multitemperature lithium cell simulation model;parameter estimation;paramount effects;powertrain electrification;pulse current discharge test;series resistor;state of charge;thermal effect;transport phenomena;Batteries;Discharges (electric);Equivalent circuits;Integrated circuit modeling;Lithium;Mathematical model;System-on-a-chip;electric vehicle;electrical equivalent lithium cell model. state of charge;energy storage;high-power lithium cell;hybrid electric vehicle;pulse discharge test;thermal model},
+doi={10.1109/IEVC.2012.6183271},
+ISSN={},
+month={March},}
+
+@INPROCEEDINGS{882463,
+author={E. A. Wan and R. Van Der Merwe},
+booktitle={Proceedings of the IEEE 2000 Adaptive Systems for Signal Processing, Communications, and Control Symposium (Cat. No.00EX373)},
+title={The unscented Kalman filter for nonlinear estimation},
+year={2000},
+volume={},
+number={},
+pages={153-158},
+keywords={adaptive Kalman filters;computational complexity;covariance analysis;filtering theory;learning (artificial intelligence);nonlinear estimation;nonlinear systems;parameter estimation;state estimation;Gaussian random variable;computational complexity;covariance;deterministic sampling approach;dual estimation problems;extended Kalman filter;machine learning;neural networks training;nonlinear control;nonlinear estimation;nonlinear system;nonlinear system identification;posterior mean;sample points;state distribution;state-estimation;system dynamics;unscented Kalman filter;Computational complexity;Filters;Machine learning;Neural networks;Nonlinear dynamical systems;Nonlinear systems;Performance gain;Random variables;Sampling methods;Taylor series},
+doi={10.1109/ASSPCC.2000.882463},
+ISSN={},
+month={},}
+
+@ARTICLE{5571895,
+author={R. A. Martin},
+journal={IEEE Transactions on Information Theory},
+title={A State-Space Approach to Optimal Level-Crossing Prediction for Linear Gaussian Processes},
+year={2010},
+volume={56},
+number={10},
+pages={5083-5096},
+keywords={Gaussian noise;Kalman filters;alarm systems;computational complexity;linear systems;prediction theory;signal detection;Gaussian noise;Kalman filtering;computational complexity;fixed detection probability;linear Gaussian process;optimal alarm system;optimal level-crossing prediction;state-space approach;zero-mean stationary linear dynamical system;Alarm systems;Approximation methods;Equations;Kalman filters;Limiting;Steady-state;Alarm systems;Kalman filtering;approximation methods;level-crossing problems;prediction methods},
+doi={10.1109/TIT.2010.2059930},
+ISSN={0018-9448},
+month={Oct},}
+@article{BRONDANI2017,
+   title = {{Battery Model Parameters Estimation Using Simulated Annealing}},
+   journal = {{TEMA (S\~A\poundso Carlos)}},
+   author={BRONDANI, M.F. AND SAUSEN, A.T.Z.R. AND SAUSEN, P.S. AND BINELO, M.O.},
+   ISSN = {2179-8451},
+   language = {en},
+   URL = {http://www.scielo.br/scielo.php?script=sci_arttext&pid=S2179-84512017000100127&nrm=iso},
+   volume = {18},
+   year = {2017},
+   month = {04},
+   pages = {127 - 137},
+   publisher = {scielo},
+   crossref = {10.5540/tema.2017.018.01.0127},
+   }

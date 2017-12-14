@@ -1,5 +1,5 @@
 
-\section{Introduction - Dimitrios}
+\section{Introduction}
 
 A large amount of electronic components exist in aircrafts, satellites, and cars, many of which perform increasingly critical roles autonomously.  This trend of autonomous vehicles will continue to grow for the foreseeable future, such as the growth of self-driving cars and UAVs many of which utilize all electric powertrains.
 
@@ -22,7 +22,7 @@ This paper focuses entirely on on two different machine learning approaches, cre
 
 The rest of the document is organized as follows: Section 2 presents recent related work and studies on Predictive Models for \lib  batteries. The problem description and the addressed challenges are explained in Section 3. Our approach is presented in Section 4. Subsequently, the evaluation results are discussed in Section 5. We conclude with a view on future work in Section 6.
 
-\section{Related Work - Dimitrios}
+\section{Related Work}
 At present, the various approaches of battery State of Charge (SOC) estimation and RUL prediction can be generally classified into two categories \cite{Liu:2014:LBR:2662603.2662621}: statistical data-driven and model based \cite{ZHANG20116007}, \cite{Si2011RemainingUL}. There are lots of research work focusing on performance degradation, SOC assessment, RUL estimation for the \lib battery
 \cite{Bhaskar01}, \cite{4579269}, \cite{zio:hal-00609502}. Especially for the
 \lib battery prognostics, the prediction uncertainty, and
@@ -52,7 +52,7 @@ require high computing complexity even in the case of simple application, callin
 
 \section{Methodology}
 
-\subsection{Dataset - Dimitrios}
+\subsection{Dataset}
 
 To evaluate the performance of two approaches analyzed in the following parts, we used a dataset provided by NASA\footnote{\url{https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/}} \cite{bole2014adaptation}. The dataset used was derived from a NASA experiment where a set of four 18650 \lib batteries, labeled from RW9 to RW12, were continuously operated using a sequence of charging and discharging currents between -4.5A and 4.5. This type of charging and discharging operation is referred to in the experiment as a random walk (RW) operation. Each of the loading periods last 5 minutes or whenever the voltage goes outside the range of 4.2V to 3.2V, and after 1500 periods (about 5 days) a series of reference charging and discharging cycles were performed in order to provide reference benchmarks for battery state health.
 
@@ -70,11 +70,16 @@ The dataset includes the relative time the measurements were taken from the star
 \end{figure*}
 
 Note that due to random nature of charging and discharging cycles performed during this experiment, the stable state preconditions required by the approach outlined in \cite{5571895} are violated and hence, non-linear methods should be adopted instead.
-\subsection{Gaussian Process Regression - Darren}
+
+\subsubsection{Infrastructure} We used a machine with an Intel Core\textsuperscript{TM} i5-2557M Processor, 1.7 GHz, 4GB of RAM memory and \MATLAB, version R2017b.
+\subsection{Gaussian Process Regression}
 
 Gaussian process regression (GPR) is a statistical model where observations are continuous, such as time \cite{10.1371/journal.pone.0163004}.  The model is a powerful non-linear multivariate interpolation technique used in fields as far ranging as mining, remote sensing, and real estate appraisal. In machine learning, GPR models are nonparametric kernel-based probabilistic models that utilize lazy learning and a kernel function, which uses the similarity between points, to predict an unseen point in training data, along with the uncertainty of the prediction.
 
-In this paper, voltage was selected as the output of the GPR model, with time, temperature, and current as inputs.  Given the sheer size of data for a single battery, over 8 million data rows, and the limitation of \MATLAB, roughly 30 thousand data rows were randomly chosen over the entire RW9 dataset to be used as training data.  Multiple GPR models were trained using different kernel functions: rational quadratic, squared exponential, matern 5/2, and exponential.  Each model used 5-fold cross validation.  The best model was selected based on the lowest root mean square error (RMSE), the model that best fit the training data.  RW10 data was used as a test set for the trained model.  The models were created using \MATLAB\textquotesingle s Statistics and Machine Learning Toolbox, as shown in Figure \ref{fig:regresion_learner}.
+Observed values generally do not match the exact function values, but a noisy realization of them.  GPR models, which are probabilistic, are able to compute the prediction intervals using these observed values and predict all values between the observed values.  This means that, the model becomes more accurate as more observed values are given to the model as training data as it is easier to find the function that fits the data.  However, since GPR models are created through lazy learning, more data dramatically increases the time to train a model.  As an addendum, GPR model predictions have drastically increased error when predicting values outside of the time range that the training data is in, as the prediction interval bounds drastically increase due to the lack of observed values for future time.  Fortunately, in our case, our dataset includes observed data of the entire lifetime of the battery and so prediction intervals are expected to remain consistent.
+
+
+In this paper, voltage was selected as the output of the GPR model, with time, temperature, and current as inputs.  Given the sheer size of data for a single battery, over 8 million data rows, and the limitation of \MATLAB, roughly 30 thousand data rows were randomly chosen over the entire RW9 dataset to be used as training data.  Multiple GPR models were trained using different kernel functions: rational quadratic, squared exponential, matern 5/2, and exponential.  Each model used 5-fold cross validation.  The best model was selected based on the lowest root mean square error (RMSE), the model that best fit the training data.  RW10 data was used as a test set for the trained model.  The models were created using \MATLAB\textquotesingle s Statistics and Machine Learning Toolbox\textsuperscript{TM}, as shown in Figure \ref{fig:regresion_learner}.
 
 \begin{figure}
  \includegraphics[height=2in, width=3in]{figures/GPR/regresion_learner}
@@ -83,9 +88,9 @@ In this paper, voltage was selected as the output of the GPR model, with time, t
 \end{figure}
 
 
-\subsection{Battery Modeling Using Battery Equivalent Circuit - Imre \& Ali}
+\subsection{Battery Modeling Using Battery Equivalent Circuit}
 
-In this approach, we can predict the state of the battery by modeling its physical characteristics. There are two important requirements that must be provided before the battery internal parameters are estimated. First, we need the battery equivalent circuit. This equivalent circuit later will be used to construct \MATLAB\'s Simscape \footnote{\url{https://www.mathworks.com/products/simscape.html}} and Simulink\footnote{\url{https://www.mathworks.com/products/simulink.html}} model. The second requirement is the real data from experiments performed on the battery. In this case, the dataset will be discharging data from RW9 dataset provided by NASA. By using these two requirements, parameter estimation will be performed in the Simulink Design Optimization tool provided by \MATLAB. The goal of this estimation is to estimate the internal parameter values of the battery, e.g. $R_0$, $R_1$, $C_1$, and $Em$.
+In this approach, we can predict the state of the battery by modeling its physical characteristics. There are two important requirements that must be provided before the battery internal parameters are estimated. First, we need the battery equivalent circuit. This equivalent circuit later will be used to construct \MATLAB\'s Simscape \footnote{\url{https://www.mathworks.com/products/simscape.html}} and Simulink\footnote{\url{https://www.mathworks.com/products/simulink.html}} model. The second requirement is the real data from experiments performed on the battery. In this case, the dataset will be discharging data from RW9 dataset provided by NASA. Even though the dataset used in GPR experiment is still applied, in this approach, the total random walk cycles are not required for the parameter estimation. To construct the battery model and estimates its internal parameters, we only need the very first discharging cycle of the battery in the initial experiment since we only need the discharging data where the battery condition is still good and optimal so that we can the create a proper model for our experiment. By using these two requirements, parameter estimation will be performed in the Simulink Design Optimization tool provided by \MATLAB. The goal of this estimation is to estimate the internal parameter values of the battery, e.g. $R_0$, $R_1$, $C_1$, and $Em$.
 
 \subsubsection{Battery Model}
 
@@ -191,7 +196,7 @@ The state transition and measurement equations are shown below:
 where $W_{C_q}$ is the process noise, $V_{C_q}$ is the measurement noise, $A_{C_q}$ and $C_{C_q}$ are constants that are set to 1.
 
 \section{Results}
-\subsection{Gaussian Process Regression - Darren}
+\subsection{Gaussian Process Regression}
 
 The best GPR model created has a $RMSE$ of 0.1058, where voltage ranges from 4.2V to 3.2V, and uses an exponential kernel function.  The trained model performs well on both the train and test set, with almost the entire training (RW9) and testing (RW10) dataset falling inside the 95\% confidence bounds of the trained GPR model’s predictions.  An interesting characteristic of the model to note is that the predicted peaks are lower and the dips are higher than the actual values as shown in Figures \ref{fig:first_5k_rw9_v_model} to \ref{fig:last_5k_rw10_v_model}.
 \begin{figure*}
@@ -258,7 +263,7 @@ The error in the trained model’s prediction, measured as the absolute differen
 
 Despite the ability for the GPR model to predict the state of the battery with relatively high predictive power, there are issues with how the model predicts future data that makes it impractical for prognostics.  Due to the fact that temperature and current are used as inputs along with time, if the model is at time $t$ and needs to predict voltage for $t+1$, the model requires the current and temperature at $t+1$ to be able to predict voltage at $t+1$.  This is obviously impractical to use for an alarm system as the future current and temperature is unknown to the model until it is measured at $t+1$, but at that point there is no value added to predict voltage for $t+1$, as it has already occurred and can be measured.
 
-\subsection{Battery Modeling Using Battery Equivalent Circuit - Imre \& Ali}
+\subsection{Battery Modeling Using Battery Equivalent Circuit}
 
 \subsubsection{Battery Parameter Estimation}
 
@@ -349,13 +354,13 @@ It is important to observe that the capacity of the battery decreases as the bat
 \end{figure}
 In Figure \ref{fig:capacity_2}, it can be seen that as the battery discharges, the frequency of the SOC pattern increases. This means that it takes less time for the battery to charge and discharge, which supports our results from the Figure \ref{fig:capacity_1}. Note that because of this decrease in charging and discharging time, our estimates for SOC begin showing increased error as the sample rate is greater than the reduced charging/discharge time.
 
-\section{Conclusion - Ali}
+\section{Conclusion}
 In conclusion, both the GPR and State Space Modeling of the battery can be used to predict the RUL of the battery. However there are tradeoffs between these methods. 
 
 The GPR predicts the voltage battery with a relatively small error. However, this method shows serious time and space complexity limitations as it is slow to train ( approx. 1 hour) and can accept only a limited training set (less than 1\% of available data points). It also requires the inputs of the next time step to predict the output, and thus a usable alarm cannot easily be built.
 The State Space Model of the Physical battery predicts the state of the battery through simulation. It is faster to train( approx.20 mins). It is shown to produce, with high accuracy, estimates of SOC and capacity. An alarm system can also be built using the fact that the charging or discharging time decreases as the battery state degrades.
 
-\section{Future Work - Dimitrios}
+\section{Future Work}
 As of future work, the authors plan to further investigate the capabilities of Gaussian Process Regression (GPR) so that the model will not require future inputs to predict future outputs, but will aim to predict each individual feature using temperature as an alternative output feature. Moreover, the goal is to construct an alarm system that will leverage the results obtained from the Kalman Filtering approach : using the estimated capacity curve and the measured State of Charge behavior of the battery, an alarm will be triggered when the required recharge period drops below a certain threshold, indicating deteriorating capacity.
 
  

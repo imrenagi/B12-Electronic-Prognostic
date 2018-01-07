@@ -172,7 +172,7 @@ The Kalman filter can be configured in Simulink, details of which can be found i
 \paragraph{Estimating Battery Capacity}
 The decreasing capacity $Cq$ of the battery models the battery degradation. The battery is configured to charge when its capacity is at 30\% and discharge when it is at 90\%. Thus the measurement equations can be derived as:
 \begin{equation}
-  \label{state transition_2}
+  \label{measurement_equation}
 \begin{aligned}
 \begin{split}
  C_{q_k}^{measured} = C_{q_{k}} + V_{C_{q}} =  \frac{\int_{t_{k-1}}^{t_{k}}Idt} {(\Delta SOC)_{nominal}} = \\ = \frac{\int_{t_{k-1}}^{t_{k}}Idt} {\left|0.9 - 0.3 \right|} = \frac{\int_{t_{k-1}}^{t_{k}}Idt} {0.6}
@@ -229,10 +229,10 @@ The best GPR model created has a $RMSE$ of 0.1058, where voltage ranges from 4.2
 \begin{multicols}{2}
 	\includegraphics[height=2.3in, width=3.5in]{figures/GPR/first_5k_rw10_v_model_w_bounds}
 	\caption{GPR Model: First 5K data of Model vs. Training Set (RW10) with 95\% conf bounds}
-	\label{fig:first_5k_rw9_v_model_w_bounds}
+	\label{fig:first_5k_rw10_v_model_w_bounds}
 	\includegraphics[height=2.3in, width=3.5in]{figures/GPR/last_5k_rw10_v_model_w_bounds}
 	\caption{GPR Model:Last 5K data of Model vs. Training Set (RW10) with 95\% conf bounds}
-	\label{fig:last_5k_rw9_v_model_w_bounds}
+	\label{fig:last_5k_rw10_v_model_w_bounds}
 	\includegraphics[height=2.3in, width=3.5in]{figures/GPR/first_5k_rw9_abs_v_diff}
 	\caption{GPR Model: Absolute difference between RW9 and GPR model for first 5K data points}
 	\label{fig:first_5k_rw9_abs_v_diff}
